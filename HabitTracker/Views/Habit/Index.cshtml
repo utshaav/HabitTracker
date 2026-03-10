@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<HabitTracker.Models.Habit>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -8,3 +9,40 @@
     <p>Click on "Habits" to view, add, or edit your habits.  <a href="/habit/create">Create Habit</a></p>
 
 </div>
+
+@if (Model != null && Model.Any())
+{
+    <h2>Your Habits</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Frequency</th>
+                <th>Start Date</th>
+                <th>Grace Period (days)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var habit in Model)
+            {
+                <tr>
+                    <td>@habit.HabitTitle</td>
+                    <td>@habit.HabitDescription</td>
+                    <td>@habit.HabitFrequency</td>
+                    <td>@habit.HabitStartDate.ToShortDateString()</td>
+                    <td>@habit.HabitGracePeriod</td>
+                    <td>
+                        <a asp-controller="Habit" asp-action="Edit" asp-route-id="@habit.Id" class="btn btn-sm">Edit</a>
+                        <a asp-controller="Habit" asp-action="Delete" asp-route-id="@habit.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have no habits yet. <a href="/habit/create">Create your first habit</a>!</p>
+}
