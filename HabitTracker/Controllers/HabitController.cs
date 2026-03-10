@@ -32,4 +32,16 @@ namespace HabitTracker.Controllers;
             }
             return View(habit);
         }
+        // [HttpDelete]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var habit = await _db.Habits.FindAsync(id);
+            if (habit == null)
+            {
+                return NotFound();
+            }
+            _db.Habits.Remove(habit);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
     }

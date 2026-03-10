@@ -35,10 +35,10 @@
                     <td>@habit.HabitGracePeriod</td>
                     <td>
                         <a asp-controller="Habit" asp-action="Edit" asp-route-id="@habit.Id" class="btn btn-sm">Edit</a>
-                        <a asp-controller="Habit" asp-action="Delete" asp-route-id="@habit.Id" class="btn btn-sm btn-danger">Delete</a>
+                        <a asp-controller="Habit" method="delete" asp-action="Delete" asp-route-id="@habit.Id" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
-            }
+            }   
         </tbody>
     </table>
 }
