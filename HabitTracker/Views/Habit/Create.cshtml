@@ -1,0 +1,33 @@
+@using HabitTracker.Models
+@model Habit
+
+<form asp-controller="Habit" asp-action="Create" method="post" class="row g-3">
+  <div class="col-md-6">
+    <label asp-for="HabitTitle" class="form-label">Habit Title</label>
+    <input asp-for="HabitTitle" type="text" class="form-control" id="inputHabitTitle">
+  </div>
+  <div class="col-md-6">
+    <label asp-for="HabitDescription" class="form-label">Habit Description</label>
+    <input asp-for="HabitDescription" type="text" class="form-control" id="inputHabitDescription">
+  </div>
+  <div class="col-md-6">
+    <label asp-for="HabitFrequency" class="form-label">Habit Frequency</label>
+    <select asp-for="HabitFrequency" id="inputHabitFrequency" class="form-select">
+      <option selected>Choose...</option>
+      <option>Daily</option>
+      <option>Weekly</option>
+      <option>Monthly</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label asp-for="HabitStartDate" class="form-label">Start Date</label>
+    <input asp-for="HabitStartDate" type="date" class="form-control" id="inputHabitStartDate">
+  </div>
+  <div class="col-md-6">
+    <label asp-for="HabitGracePeriod" class="form-label">Grace Period (days)</label>
+    <input asp-for="HabitGracePeriod" type="number" class="form-control" id="inputHabitGracePeriod">
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Create Habit</button>
+  </div>
+</form>
