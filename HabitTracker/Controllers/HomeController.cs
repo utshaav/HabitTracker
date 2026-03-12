@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using HabitTracker.Models;
+using HabitTracker.ViewModels;
 
 namespace HabitTracker.Controllers;
 
@@ -15,10 +16,38 @@ public class HomeController : Controller
         _db = db;
     }
 
+    private List<int> GetHabitLogIndicators(Guid habitId)
+    {
+        var indicators = new List<int> { 0, 0, 0, 0, 0, 0, 0 };
+        var logs = _db.HabitLogs.Where(log => log.HabitId == habitId).ToList();
+        foreach (var log in logs)
+        {
+            var daysAgo = (DateTime.UtcNow - log.LogDate).Days;
+            if (daysAgo >= 0 && daysAgo < indicators.Count)
+            {
+                indicators[daysAgo] = 1;
+            }
+        }
+        return indicators;
+    }
     public IActionResult Index()
     {
         var habits = _db.Habits.ToList();
-        return View(habits);
+        List<HabitViewModel> habitViewModels = new();
+        foreach (var habit in habits)
+        {
+
+            habitViewModels.Add(new HabitViewModel
+            {
+                Id = habit.Id,
+                HabitTitle = habit.HabitTitle,
+                HabitDescription = habit.HabitDescription,
+                HabitFrequency = habit.HabitFrequency,
+                HabitGracePeriod = habit.HabitGracePeriod,
+                LogDisplayIndicators = GetHabitLogIndicators(habit.Id)
+            });
+        };
+        return View(habitViewModels);
     }
 
     public IActionResult Privacy()

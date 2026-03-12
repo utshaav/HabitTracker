@@ -44,4 +44,25 @@ namespace HabitTracker.Controllers;
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        public async Task<bool> MarkAsCompleted(Guid id)
+        {
+            try
+            {
+                _db.HabitLogs.Add(new HabitLog
+                {
+                    Id = Guid.NewGuid(),
+                    HabitId = id,
+                    LogDate = DateTime.UtcNow
+                });
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error marking habit as completed");
+                return false;
+            }
+            
+        }
     }
