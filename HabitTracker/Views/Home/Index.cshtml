@@ -17,15 +17,16 @@
                 debugger;
                 if (data === "true") {
                     el.checked = true;
-                    refreshHabitIndicators(id);
+                    await refreshHabitIndicators(habitId);
                 } else {
                     alert("Failed to mark habit as done.");
                     el.checked = false;
                 }
 
-            } catch {
+            } catch (err) {
                 alert("Error marking habit as done.");
                 el.checked = false;
+                 console.error(err);
             }
         });
     });

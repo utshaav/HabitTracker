@@ -53,7 +53,7 @@ namespace HabitTracker.Controllers;
                 {
                     Id = Guid.NewGuid(),
                     HabitId = id,
-                    LogDate = DateTime.UtcNow
+                    LogDate = DateTime.UtcNow.Date
                 });
                 await _db.SaveChangesAsync();
                 return true;

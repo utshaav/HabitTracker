@@ -15,34 +15,14 @@
         <tbody>
             @foreach (var habit in Model)
             {
+                var isChecked = habit.IsCompletedToday ? "checked" : "";
                 <tr>
-                    <td><input class="habit-checker" data-id="@habit.Id" type="checkbox" /></td>
+                    <td><input class="habit-checker" data-id="@habit.Id" type="checkbox" @isChecked /></td>
                     <td title="@habit.HabitDescription">@habit.HabitTitle</td>
                     <td>@habit.HabitFrequency</td>
                     <td class="container float-end">
-                        <div class="row">
-                           @if (habit.LogDisplayIndicators != null)
-                            {
-                                for (int i = 0; i < habit.LogDisplayIndicators.Count; i++)
-                                {
-                                    <div class="col">
-                                        @if (habit.LogDisplayIndicators[i] == 1)
-                                        {
-                                             <div class="col p-0"><i class="bi bi-circle-fill"></i></div>
-                                        }
-                                        else if (habit.LogDisplayIndicators[i] == -1)
-                                        {
-                                            <div class="col p-0"><i class="bi bi-circle"></i></div>
-
-                                        }
-                                        else
-                                        {
-                                             <div class="col p-0"><i class="bi bi-circle"></i></div>
-
-                                        }
-                                    </div>
-                                }
-                            }
+                        <div class="row" id="habit-indicator-@habit.Id">
+                           <partial name="_HabitIndicator" model="habit.LogDisplayIndicators" />
                         </div>
 
                     </td>
