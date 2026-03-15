@@ -9,6 +9,7 @@
                 <th></th>
                 <th>Title</th>
                 <th>Frequency</th>
+                <th>Weekly Streak</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                     <td><input class="habit-checker" data-id="@habit.Id" type="checkbox" @isChecked /></td>
                     <td title="@habit.HabitDescription">@habit.HabitTitle</td>
                     <td>@habit.HabitFrequency</td>
+                    <td><span class="badge bg-primary">@habit.GetCurrentStreak()</span></td>
                     <td class="container float-end">
                         <div class="row" id="habit-indicator-@habit.Id">
                            <partial name="_HabitIndicator" model="habit.LogDisplayIndicators" />
