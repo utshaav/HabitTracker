@@ -1,16 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using HabitTracker.Models;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace HabitTracker.Controllers;
     public class HabitController: Controller
     {
         private readonly ILogger<HabitController> _logger;
         private readonly HabitContext _db;
-        public HabitController(ILogger<HabitController> logger, HabitContext db)
+        private readonly IMapper _mapper;
+
+        public HabitController(ILogger<HabitController> logger, HabitContext db, IMapper mapper)
         {
             _logger = logger;
             _db = db;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -22,11 +26,12 @@ namespace HabitTracker.Controllers;
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Habit habit)
+        public async Task<IActionResult> Create(HabitDTO habit)
         {
             if (ModelState.IsValid)
             {
-                _db.Habits.Add(habit);
+                var habitEntity = _mapper.Map<Habit>(habit);
+                _db.Habits.Add(habitEntity);
                 await _db.SaveChangesAsync();  
                 return RedirectToAction("Index");
             }
@@ -51,9 +56,9 @@ namespace HabitTracker.Controllers;
             {
                 _db.HabitLogs.Add(new HabitLog
                 {
-                    Id = Guid.NewGuid(),
+                    HabitLogId = Guid.NewGuid(),
                     HabitId = id,
-                    LogDate = DateTime.UtcNow.Date
+                    LogDate = DateOnly.FromDateTime(DateTime.UtcNow)
                 });
                 await _db.SaveChangesAsync();
                 return true;
