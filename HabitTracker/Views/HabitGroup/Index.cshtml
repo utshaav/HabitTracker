@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HabitTracker.Models.HabitGroup>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (Model != null && Model.Any())
+{
+    <h2>Your Habit Groups </h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Icon</th>
+                <th>Color</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var habitGroup in Model)
+            {
+                <tr>
+                    <td>@habitGroup.Name</td>
+                    <td>@habitGroup.Description</td>
+                    <td>@habitGroup.Icon</td>
+                    <td>@habitGroup.Color</td>
+                    <td>
+
+                        <a asp-controller="HabitGroup" asp-action="Edit" asp-route-id="@habitGroup.HabitGroupId" class="btn btn-sm">Edit</a>
+                        <a asp-controller="HabitGroup" method="delete" asp-action="Delete" asp-route-id="@habitGroup.HabitGroupId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }   
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have no habit groups yet. <a href="/habitgroup/create">Create your first habit group</a>!</p>
+}

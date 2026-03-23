@@ -1,0 +1,24 @@
+@using HabitTracker.Models
+@model HabitGroup
+
+<form asp-controller="HabitGroup" asp-action="Create" method="post" class="row g-3">
+  <div class="col-md-6">
+    <label asp-for="Name" class="form-label">Habit Group Name</label>
+    <input asp-for="Name" type="text" class="form-control" id="inputName">
+  </div>
+  <div class="col-md-6">
+    <label asp-for="Description" class="form-label">Habit Group Description</label>
+    <input asp-for="Description" type="text" class="form-control" id="inputDescription">
+  </div>
+  <div class="col-md-6">
+    <label asp-for="Icon" class="form-label">Habit Group Icon</label>
+    <input asp-for="Icon" type="text" class="form-control" id="inputIcon">
+  </div>
+  <div class="col-md-6">
+    <label asp-for="Color" class="form-label">Habit Group Color</label>
+    <input asp-for="Color" type="color" class="form-control" id="inputColor">
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Create Habit</button>
+  </div>
+</form>

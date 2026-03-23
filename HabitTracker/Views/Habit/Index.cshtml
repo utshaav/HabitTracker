@@ -3,13 +3,18 @@
     ViewData["Title"] = "Home Page";
 }
 
+
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Use the navigation bar to manage your habits.</p>
-    <p>Click on "Habits" to view, add, or edit your habits.  <a href="/habit/create">Create Habit</a></p>
+    <p>Click on "Habits" to view, add, or edit your habits.  
+        <a href="/habit/create">Create Habit</a></p>
 
 </div>
-
+<div>
+    <button class="btn btn-primary mb-3" onclick="location.href='/habitgroup/create'">Create New Habit Group</button>
+</div>
 @if (Model != null && Model.Any())
 {
     <h2>Your Habits</h2>
